@@ -37,15 +37,16 @@ module.exports = function(grunt) {
         config_file: 'version_test_config.json',
         config_dir: 'tmp',
         version_length: 8,
-        algorithm: 'sha256',
+        algorithm: 'md5',
         prefix: '<%= pkg.version %>'
       },
-      files: {
-        'tmp/css': ['test/files/*.css'],
-        'tmp/js': ['test/files/*.js']
+      dest: {
+        files: {
+          'tmp/css': ['test/files/*.css'],
+          'tmp/js': ['test/files/*.js']
+        }
       }
-    },
-
+    }
   });
 
   // Actually load this plugin's task(s).
