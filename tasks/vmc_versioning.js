@@ -21,7 +21,7 @@ module.exports = function(grunt) {
             config_wrap_name: 'versioned_files',
             config_file: 'versioning_config.json',
             config_dir: 'tmp',
-            version_length: 6,
+            hash_length: 6,
             algorithm: 'md5',
             prefix: ''
         });
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
                 // Generate hash based on file.
                 var file_utf8    = grunt.file.read(filepath, 'utf8');
                 var file_content = grunt.file.read(filepath);
-                var hash         = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.version_length);
+                var hash         = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hash_length);
 
                 // Get filename and extension
                 var filename = filepath.replace(/(.*)\//gi, '');
