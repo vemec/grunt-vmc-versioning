@@ -89,10 +89,10 @@ Add a prefix to a file such as `master.[ PREFIX ].[ HASH ].css`
   "versioned_test_files": {
     "files": {
       "css": [
-        "tmp/css/tmp/css/main.0.1.1.c9bf05c8.css"
+        "tmp/css/main.0.1.1.c9bf05c8.css"
       ],
       "js": [
-        "tmp/js/tmp/js/script.0.1.1.b7dfd894.js"
+        "tmp/js/script.0.1.1.b7dfd894.js"
       ]
     }
   }
