@@ -83,6 +83,14 @@ Default value: `''`
 
 Add a prefix to a file such as `master.[ PREFIX ].[ HASH ].css`
 
+
+#### options.encoding
+Type: `String`
+Default value: `'utf8'`
+
+Encoding type
+
+
 ### JSON output file example (Optional)
 ```json
 {
