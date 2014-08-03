@@ -1,6 +1,8 @@
 # grunt-vmc-versioning
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it.
+-----------
+[![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
