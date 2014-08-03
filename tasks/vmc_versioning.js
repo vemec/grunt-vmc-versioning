@@ -18,12 +18,13 @@ module.exports = function(grunt) {
 
         // Default options
         var options = this.options({
-            config_wrap_name: 'versioned_files',
-            config_file: 'versioning_config.json',
-            config_dir: 'tmp',
-            hash_length: 6,
-            algorithm: 'md5',
-            prefix: ''
+            config_output: true,                    // Default true
+            config_wrap_name: 'versioned_files',    // Default versioned_files
+            config_file: 'versioning_config.json',  // Default versioning_config.json
+            config_dir: 'tmp',                      // Default tmp
+            hash_length: 6,                         // Default 6
+            algorithm: 'md5',                       // Default md5 - other options sha1/sha256/sha512
+            prefix: ''                              // Default empty
         });
 
         // init output data
@@ -31,16 +32,21 @@ module.exports = function(grunt) {
 
         // Files...
         this.files.forEach( function(file) {
+            if (!file.src.length) {
+                return grunt.fail.warn('No source files were found.');
+            }
 
             file.src.forEach( function(filepath) {
-
-                if (filepath.length <= 0) {
-                    grunt.log.error('File not found!!');
+                if (grunt.file.isDir(filepath)) {
+                  return;
                 }
 
                 // Generate hash based on file.
-                var file_utf8    = grunt.file.read(filepath, 'utf8');
                 var file_content = grunt.file.read(filepath);
+                if (file_content.length === 0) {
+                    grunt.log.warn('File ' + chalk.cyan(filepath) + ' is empty.');
+                    return;
+                }
                 var hash         = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hash_length);
 
                 // Get filename and extension
@@ -48,6 +54,7 @@ module.exports = function(grunt) {
                 var name     = getFileNameOrExtension(filename, 'name');
                 var ext      = getFileNameOrExtension(filename, 'ext');
 
+                // Fill output data
                 file_output['files'] = file_output['files'] || {};
                 file_output['files'][ext] = file_output['files'][ext] || [];
 
@@ -74,12 +81,21 @@ module.exports = function(grunt) {
                 {
                     // Found file
                     grunt.log.writeln('File ' + chalk.cyan(filepath) + ' found.');
-                    grunt.file.write(file.dest + '/' + result_file, file_content);
-                    grunt.log.ok('File ' + chalk.cyan(file.dest + '/' + result_file) + ' created.');
+                    result_file = file.dest + '/' + result_file;
+                    if (grunt.file.exists(result_file))
+                    {
+                        grunt.log.writeln(chalk.yellow('File ' + file.dest + '/' + result_file + ' unchanged.'));
+                    }
+                    else
+                    {
+                        grunt.file.write(result_file, file_content);
+                        grunt.log.ok('File ' + chalk.cyan(file.dest + '/' + result_file) + ' created.');
+                    }
 
-                    // json output
-                    file_output['files'][ext].push(file.dest +'/'+ result_file);
                 }
+
+                // json output
+                file_output['files'][ext].push(file.dest +'/'+ result_file);
 
             });
 
@@ -87,7 +103,9 @@ module.exports = function(grunt) {
 
         // Save JSON output file.
         grunt.log.writeln();
-        outputJSONFile(file_output, options.config_dir, options.config_wrap_name, options.config_file);
+        if (options.config_output) {
+            outputJSONFile(file_output, options.config_dir, options.config_wrap_name, options.config_file);
+        }
 
     });
 

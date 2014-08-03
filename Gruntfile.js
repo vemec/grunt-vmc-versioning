@@ -17,8 +17,7 @@ module.exports = function(grunt) {
     jshint: {
       all: [
         'Gruntfile.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>'
+        'tasks/*.js'
       ],
       options: {
         jshintrc: '.jshintrc'
@@ -36,14 +35,15 @@ module.exports = function(grunt) {
         config_wrap_name: 'versioned_test_files',
         config_file: 'version_test_config.json',
         config_dir: 'tmp',
-        version_length: 8,
+        hash_length: 8,
         algorithm: 'md5',
         prefix: '<%= pkg.version %>'
       },
       dest: {
         files: {
           'tmp/css': ['test/files/*.css'],
-          'tmp/js': ['test/files/*.js']
+          'tmp/js': ['test/files/*.js'],
+          'tmp/img': ['test/files/*.{jpg,jpeg,gif,png}']
         }
       }
     }

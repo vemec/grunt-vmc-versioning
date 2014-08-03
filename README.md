@@ -40,26 +40,29 @@ grunt.initConfig({
 
 ### Options
 
+#### options.config_output
+Type: `Boolean`
+Default value: `'true'`
 
-prefix
+A string value that is used to set a wrapper name to the JSON output file.
 
 #### options.config_wrap_name
 Type: `String`
 Default value: `'versioned_files'`
 
-A string value that is used to set a wrapper name.
+A string value that is used to set a wrapper name to the JSON output file.
 
 #### options.config_file
 Type: `String`
 Default value: `'versioning_config.json'`
 
-JSON file name.
+JSON output file name.
 
 #### options.config_dir
 Type: `String`
 Default value: `'tmp'`
 
-A dir to save the config file JSON.
+A dir to save the JSON config file.
 
 #### options.hash_length
 Type: `String`
@@ -71,13 +74,30 @@ Hash length
 Type: `String`
 Default value: `'md5'`
 
-Algoritm `md5/sha1/sha256/sha512`
+`algorithm` is dependent on the available algorithms supported by the version of OpenSSL on the platform. Examples are `'sha1'`, `'md5'`, `'sha256'`, `'sha512'`, etc. On recent releases, `openssl list-message-digest-algorithms` will display the available digest algorithms.
+
 
 #### options.prefix
 Type: `String`
 Default value: `''`
 
-A prefix to output file.
+Add a prefix to a file such as `master.[ PREFIX ].[ HASH ].css`
+
+### JSON output file example (Optional)
+```json
+{
+  "versioned_test_files": {
+    "files": {
+      "css": [
+        "tmp/css/tmp/css/main.0.1.1.c9bf05c8.css"
+      ],
+      "js": [
+        "tmp/js/tmp/js/script.0.1.1.b7dfd894.js"
+      ]
+    }
+  }
+}
+```
 
 ### Usage Examples
 
