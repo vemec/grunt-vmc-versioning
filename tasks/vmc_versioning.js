@@ -24,6 +24,7 @@ module.exports = function(grunt) {
             config_dir: 'tmp',                      // Default tmp
             hash_length: 6,                         // Default 6
             algorithm: 'md5',                       // Default md5 - other options sha1/sha256/sha512
+            encoding: 'utf8',                       // Default utf8
             prefix: ''                              // Default empty
         });
 
@@ -47,7 +48,7 @@ module.exports = function(grunt) {
                     grunt.log.warn('File ' + chalk.cyan(filepath) + ' is empty.');
                     return;
                 }
-                var hash         = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hash_length);
+                var hash = crypto.createHash(options.algorithm).update(file_content, options.encoding).digest('hex').substring(0, options.hash_length);
 
                 // Get filename and extension
                 var filename = filepath.replace(/(.*)\//gi, '');
