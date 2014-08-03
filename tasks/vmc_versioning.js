@@ -86,18 +86,18 @@ module.exports = function(grunt) {
                     result_file = file.dest + '/' + result_file;
                     if (grunt.file.exists(result_file))
                     {
-                        grunt.log.writeln(chalk.yellow('File ' + file.dest + '/' + result_file + ' unchanged.'));
+                        grunt.log.writeln(chalk.yellow('File ' + result_file + ' unchanged.'));
                     }
                     else
                     {
                         grunt.file.write(result_file, file_content);
-                        grunt.log.ok('File ' + chalk.cyan(file.dest + '/' + result_file) + ' created.');
+                        grunt.log.ok('File ' + chalk.cyan(result_file) + ' created.');
                     }
 
                 }
 
                 // json output
-                file_output['files'][ext].push(file.dest +'/'+ result_file);
+                file_output['files'][ext].push(result_file);
 
             });
 
