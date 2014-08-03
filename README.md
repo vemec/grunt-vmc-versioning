@@ -128,6 +128,7 @@ grunt.initConfig({
 ```
 
 ## Release History
+- 2014-08-03 0.1.2 Bug fixes.
 - 2014-08-03 0.1.0 Initial release.
 
 ## License
