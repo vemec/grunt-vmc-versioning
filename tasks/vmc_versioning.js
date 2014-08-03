@@ -73,7 +73,8 @@ module.exports = function(grunt) {
                         // duplicate flag
                         duplicate_found = true;
                         grunt.verbose.writeln('File ' + chalk.cyan(filepath) + ' found.');
-                        grunt.verbose.writeln('File with the same hash found, current file hash: ' + chalk.red(part) + ', file content generated hash ' + chalk.red(hash) + '. I will not create a new file, it is the same file.');
+                        grunt.verbose.writeln('File with the same hash found, current file hash: ' + chalk.red(part) +
+                        ', file content generated hash ' + chalk.red(hash) + '. I will not create a new file, it is the same file.');
                     }
                 });
 

@@ -44,7 +44,7 @@ grunt.initConfig({
 Type: `Boolean`
 Default value: `'true'`
 
-A string value that is used to set a wrapper name to the JSON output file.
+Output JSON file.
 
 #### options.config_wrap_name
 Type: `String`
