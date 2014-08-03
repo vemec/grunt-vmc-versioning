@@ -32,19 +32,17 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     vmc_versioning: {
-      default_options: {
-        options: {
-          config_wrap_name: 'versioned_test_files',
-          config_file: 'version_test_config.json',
-          config_dir: 'tmp',
-          version_length: 8,
-          algorithm: 'sha256',
-          prefix: '<%= pkg.version %>'
-        },
-        files: {
-          'tmp/css': ['test/files/*.css'],
-          'tmp/js': ['test/files/*.js']
-        }
+      options: {
+        config_wrap_name: 'versioned_test_files',
+        config_file: 'version_test_config.json',
+        config_dir: 'tmp',
+        version_length: 8,
+        algorithm: 'sha256',
+        prefix: '<%= pkg.version %>'
+      },
+      files: {
+        'tmp/css': ['test/files/*.css'],
+        'tmp/js': ['test/files/*.js']
       }
     },
 
