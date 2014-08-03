@@ -81,21 +81,21 @@ A prefix to output file.
 ```js
 grunt.initConfig({
   vmc_versioning: {
-    default_options: {
-      options: {
-        config_wrap_name: 'versioned_test_files',
-        config_file: 'version_test_config.json',
-        config_dir: 'tmp',
-        version_length: 8,
-        algorithm: 'sha256',
-        prefix: '<%= pkg.version %>'
-      },
+    options: {
+      config_wrap_name: 'versioned_test_files',
+      config_file: 'version_test_config.json',
+      config_dir: 'tmp',
+      version_length: 8,
+      algorithm: 'md5',
+      prefix: '<%= pkg.version %>'
+    },
+    dest: {
       files: {
         'tmp/css': ['test/files/*.css'],
         'tmp/js': ['test/files/*.js']
       }
     }
-  },
+  }
 });
 ```
 
