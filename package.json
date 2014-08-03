@@ -37,7 +37,14 @@
     "grunt": "~0.4.5"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "grunt",
+    "version",
+    "versioning",
+    "file name",
+    "js file",
+    "css file",
+    "cdn"
   ],
   "dependencies": {
     "chalk": "^0.5.1"
