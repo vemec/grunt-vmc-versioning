@@ -43,12 +43,15 @@ module.exports = function(grunt) {
                 }
 
                 // Generate hash based on file.
-                var file_content = grunt.file.read(filepath);
+                var file_content = grunt.file.read(filepath, options.encoding);
+
+                grunt.log.writeln(file_content);
+
                 if (file_content.length === 0) {
                     grunt.log.warn('File ' + chalk.cyan(filepath) + ' is empty.');
                     return;
                 }
-                var hash = crypto.createHash(options.algorithm).update(file_content, options.encoding).digest('hex').substring(0, options.hash_length);
+                var hash = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hash_length);
 
                 // Get filename and extension
                 var filename = filepath.replace(/(.*)\//gi, '');

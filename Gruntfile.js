@@ -17,7 +17,8 @@ module.exports = function(grunt) {
     jshint: {
       all: [
         'Gruntfile.js',
-        'tasks/*.js'
+        'tasks/*.js',
+        '<%= nodeunit.tests %>',
       ],
       options: {
         jshintrc: '.jshintrc'
@@ -46,7 +47,13 @@ module.exports = function(grunt) {
           'tmp/img': ['test/files/*.{jpg,jpeg,gif,png}']
         }
       }
-    }
+    },
+
+    // Unit tests.
+    nodeunit: {
+      tests: ['test/*_test.js'],
+    },
+
   });
 
   // Actually load this plugin's task(s).
