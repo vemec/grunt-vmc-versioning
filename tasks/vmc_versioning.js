@@ -37,68 +37,43 @@ module.exports = function(grunt) {
                 return grunt.fail.warn('No source files were found.');
             }
 
-            file.src.forEach( function(filepath) {
-                if (grunt.file.isDir(filepath)) {
+            file.src.forEach( function(f) {
+                if (grunt.file.isDir(f)) {
                   return;
                 }
 
                 // Generate hash based on file.
-                var file_content = grunt.file.read(filepath, options.encoding);
-
+                var file_content = grunt.file.read(f, options.encoding);
                 if (file_content.length === 0) {
-                    grunt.log.warn('File ' + chalk.cyan(filepath) + ' is empty.');
+                    grunt.log.warn('File ' + chalk.cyan(f) + ' is empty.');
                     return;
                 }
                 var hash = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hash_length);
 
                 // Get filename and extension
-                var filename = filepath.replace(/(.*)\//gi, '');
-                var name     = getFileNameOrExtension(filename, 'name');
-                var ext      = getFileNameOrExtension(filename, 'ext');
+                var filename  = f.replace(/(.*)\//gi, '');
+                var name      = getFileNameOrExtension(filename, 'name');
+                var ext       = getFileNameOrExtension(filename, 'ext');
+                var new_fname = name + '.' + (options.prefix ? options.prefix + '.'  : '') + hash + '.' + ext;
 
                 // Fill output data
                 file_output['files'] = file_output['files'] || {};
                 file_output['files'][ext] = file_output['files'][ext] || [];
 
-                // Generate file hash
-                if (options.prefix.length > 0) {
-                    hash = options.prefix+'.'+hash;
-                }
-                var result_file = name + '.' + hash + '.' + ext;
-
-                // Search files with the same hash
-                var duplicate_found = false;
-                filename.split(".").forEach( function(part) {
-                    if (part === hash)
-                    {
-                        // duplicate flag
-                        duplicate_found = true;
-                        grunt.verbose.writeln('File ' + chalk.cyan(filepath) + ' found.');
-                        grunt.verbose.writeln('File with the same hash found, current file hash: ' + chalk.red(part) +
-                        ', file content generated hash ' + chalk.red(hash) + '. I will not create a new file, it is the same file.');
-                    }
-                });
-
-                // Create file?
-                if (!duplicate_found)
+                // Found file
+                grunt.log.writeln('File ' + chalk.cyan(f) + ' found.');
+                if (grunt.file.exists(file.dest + '/' + new_fname))
                 {
-                    // Found file
-                    grunt.log.writeln('File ' + chalk.cyan(filepath) + ' found.');
-                    result_file = file.dest + '/' + result_file;
-                    if (grunt.file.exists(result_file))
-                    {
-                        grunt.log.writeln(chalk.yellow('File ' + result_file + ' unchanged.'));
-                    }
-                    else
-                    {
-                        grunt.file.write(result_file, file_content);
-                        grunt.log.ok('File ' + chalk.cyan(result_file) + ' created.');
-                    }
-
+                    grunt.log.writeln(chalk.yellow('The previously generated file is the same (' + new_fname + '), avoiding rewrite.'));
+                }
+                else
+                {
+                    grunt.file.copy(f, file.dest + '/' + new_fname);
+                    grunt.log.ok('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' created.');
                 }
 
                 // json output
-                file_output['files'][ext].push(result_file);
+                file_output['files'][ext].push(file.dest + '/' + new_fname);
 
             });
 

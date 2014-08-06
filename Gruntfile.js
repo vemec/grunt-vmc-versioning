@@ -38,7 +38,7 @@ module.exports = function(grunt) {
         config_dir: 'tmp',
         hash_length: 8,
         algorithm: 'md5',
-        prefix: '<%= pkg.version %>'
+        prefix: 'VMC'
       },
       dest: {
         files: {
