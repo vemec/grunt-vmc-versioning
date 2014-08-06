@@ -45,8 +45,6 @@ module.exports = function(grunt) {
                 // Generate hash based on file.
                 var file_content = grunt.file.read(filepath, options.encoding);
 
-                grunt.log.writeln(file_content);
-
                 if (file_content.length === 0) {
                     grunt.log.warn('File ' + chalk.cyan(filepath) + ' is empty.');
                     return;
@@ -156,7 +154,7 @@ module.exports = function(grunt) {
         var obj = {};
         obj[name_space] = output;
         var json = JSON.stringify(obj, null, '\t');
-        grunt.log.writeln('Saving JSON config file.');
+        grunt.log.writeln('Saving JSON config file...');
         grunt.file.write(dest + '/' + config_file, json);
         grunt.log.ok('File ' + chalk.cyan(dest +'/'+ config_file) + ' created.');
     }
