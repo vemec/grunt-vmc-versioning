@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.1.2 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning)
+# grunt-vmc-versioning v0.1.3 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it.
 
@@ -128,6 +128,7 @@ grunt.initConfig({
 ```
 
 ## Release History
+- 2014-08-06 0.1.3 Enhancements and fixes.
 - 2014-08-03 0.1.2 Bug fixes.
 - 2014-08-03 0.1.0 Initial release.
 
