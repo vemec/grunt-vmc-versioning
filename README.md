@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.1.3 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning)
+# grunt-vmc-versioning v0.1.4 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it.
 
@@ -93,12 +93,15 @@ Encoding type
 {
   "versioned_test_files": {
     "files": {
-      "css": [
-        "tmp/css/main.0.1.1.c9bf05c8.css"
-      ],
-      "js": [
-        "tmp/js/script.0.1.1.b7dfd894.js"
-      ]
+      "css": {
+        "main.css": "main.VMC.1bd4295b.css"
+      },
+      "js": {
+        "script.js": "script.VMC.974b3c8c.js"
+      },
+      "png": {
+        "grunt-logo.png": "grunt-logo.VMC.eea94bb7.png"
+      }
     }
   }
 }
@@ -128,6 +131,7 @@ grunt.initConfig({
 ```
 
 ## Release History
+- 2014-08-07 0.1.4 Enhancements.
 - 2014-08-06 0.1.3 Enhancements and fixes.
 - 2014-08-03 0.1.2 Bug fixes.
 - 2014-08-03 0.1.0 Initial release.

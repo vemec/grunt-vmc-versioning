@@ -30,6 +30,9 @@ module.exports = function(grunt) {
 
         // init output data
         var file_output = {};
+        var file_cnt = 0;
+
+        grunt.log.writeln('Versioning files, run with --verbose for more details.');
 
         // Files...
         this.files.forEach( function(file) {
@@ -58,29 +61,44 @@ module.exports = function(grunt) {
 
                 // Fill output data
                 file_output['files'] = file_output['files'] || {};
-                file_output['files'][ext] = file_output['files'][ext] || [];
+                file_output['files'][ext] = file_output['files'][ext] || {};
 
-                // Found file
-                grunt.log.writeln('File ' + chalk.cyan(f) + ' found.');
-                if (grunt.file.exists(file.dest + '/' + new_fname))
+                // duplicate flag
+                var duplicate_found = false;
+                filename.split(".").forEach( function(part) {
+                    if (part === hash)
+                    {
+                        duplicate_found = true;
+                        grunt.verbose.writeln(chalk.blue('The file content of ' + filename + ' generate the same hash ' + hash + ', avoiding rewrite.'));
+                    }
+                })
+
+                if (!duplicate_found)
                 {
-                    grunt.log.writeln(chalk.yellow('The previously generated file is the same (' + new_fname + '), avoiding rewrite.'));
-                }
-                else
-                {
+                    file_cnt++;
+                    // Found file
+                    grunt.log.writeln('File ' + chalk.cyan(f) + ' found.');
+                    var status_string = 'created';
+                    if (grunt.file.exists(file.dest + '/' + new_fname)) {
+                        status_string = 'rewritten';
+                    }
+
+                    // create file
                     grunt.file.copy(f, file.dest + '/' + new_fname);
-                    grunt.log.ok('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' created.');
-                }
+                    grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
 
-                // json output
-                file_output['files'][ext].push(file.dest + '/' + new_fname);
+                    // json output
+                    file_output['files'][ext][name + '.' + ext] = new_fname;
+                }
 
             });
 
         });
 
+        // cnt files.
+        grunt.log.ok(file_cnt + ' files versioned.');
+
         // Save JSON output file.
-        grunt.log.writeln();
         if (options.config_output) {
             outputJSONFile(file_output, options.config_dir, options.config_wrap_name, options.config_file);
         }
@@ -129,6 +147,7 @@ module.exports = function(grunt) {
         var obj = {};
         obj[name_space] = output;
         var json = JSON.stringify(obj, null, '\t');
+        grunt.log.writeln();
         grunt.log.writeln('Saving JSON config file...');
         grunt.file.write(dest + '/' + config_file, json);
         grunt.log.ok('File ' + chalk.cyan(dest +'/'+ config_file) + ' created.');
