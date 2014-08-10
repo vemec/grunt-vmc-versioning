@@ -14,7 +14,7 @@ var chalk  = require('chalk');
 
 module.exports = function(grunt) {
 
-    grunt.registerMultiTask('vmc_versioning', 'DESC', function() {
+    grunt.registerMultiTask('vmc_versioning', 'Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it', function() {
 
         // Default options
         var options = this.options({
@@ -35,12 +35,12 @@ module.exports = function(grunt) {
         grunt.log.writeln('Versioning files, run with --verbose for more details.');
 
         // Files...
-        this.files.forEach( function(file) {
+        this.files.forEach( function (file) {
             if (!file.src.length) {
                 return grunt.fail.warn('No source files were found.');
             }
 
-            file.src.forEach( function(f) {
+            file.src.forEach( function (f) {
                 if (grunt.file.isDir(f)) {
                   return;
                 }
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
 
                 // duplicate flag
                 var duplicate_found = false;
-                filename.split(".").forEach( function(part) {
+                filename.split(".").forEach( function (part) {
                     if (part === hash)
                     {
                         duplicate_found = true;
