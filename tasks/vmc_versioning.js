@@ -59,9 +59,16 @@ module.exports = function(grunt) {
                 var ext       = getFileNameOrExtension(filename, 'ext');
                 var new_fname = name + '.' + (options.prefix ? options.prefix + '.'  : '') + hash + '.' + ext;
 
+                var output_ext;
+                if (ext == 'jpg' || ext == 'jpeg' || ext == 'gif' || ext == 'png' || ext == 'svg') {
+                    output_ext = 'img'; }
+                else {
+                    output_ext = ext;
+                };
+
                 // Fill output data
                 file_output['files'] = file_output['files'] || {};
-                file_output['files'][ext] = file_output['files'][ext] || {};
+                file_output['files'][output_ext] = file_output['files'][output_ext] || {};
 
                 // duplicate flag
                 var duplicate_found = false;
@@ -88,7 +95,7 @@ module.exports = function(grunt) {
                     grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
 
                     // json output
-                    file_output['files'][ext][name + '.' + ext] = new_fname;
+                    file_output['files'][output_ext][name + '.' + ext] = new_fname;
                 }
 
             });

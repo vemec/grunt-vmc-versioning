@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.1.4 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning)
+# grunt-vmc-versioning v0.1.5 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it.
 
@@ -99,7 +99,7 @@ Encoding type
       "js": {
         "script.js": "script.VMC.974b3c8c.js"
       },
-      "png": {
+      "img": {
         "grunt-logo.png": "grunt-logo.VMC.eea94bb7.png"
       }
     }
@@ -131,6 +131,7 @@ grunt.initConfig({
 ```
 
 ## Release History
+- 2014-08-10 0.1.5 Change the JSON output file.
 - 2014-08-07 0.1.4 Enhancements.
 - 2014-08-06 0.1.3 Enhancements and fixes.
 - 2014-08-03 0.1.2 Bug fixes.
