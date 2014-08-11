@@ -107,7 +107,7 @@ module.exports = function(grunt) {
         });
 
         // cnt files.
-        grunt.log.ok(chalk.green(file_cnt_created) + ' files created' + (file_cnt_rewritten > 0 ? ', '+ chalk.green(file_cnt_rewritten) + ' rewritten.' : '.' ));
+        grunt.log.ok(chalk.green(file_cnt_created) + ' files versioned' + (file_cnt_rewritten > 0 ? ', '+ chalk.green(file_cnt_rewritten) + ' rewritten.' : '.' ));
 
         // Save JSON output file.
         if (options.config_output) {
