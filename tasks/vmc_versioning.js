@@ -30,7 +30,8 @@ module.exports = function(grunt) {
 
         // init output data
         var file_output = {};
-        var file_cnt = 0;
+        var file_cnt_created = 0;
+        var file_cnt_rewritten = 0;
 
         grunt.log.writeln('Versioning files, run with --verbose for more details.');
 
@@ -82,17 +83,20 @@ module.exports = function(grunt) {
 
                 if (!duplicate_found)
                 {
-                    file_cnt++;
+                    file_cnt_created++;
                     // Found file
                     grunt.log.writeln('File ' + chalk.cyan(f) + ' found.');
                     var status_string = 'created';
-                    if (grunt.file.exists(file.dest + '/' + new_fname)) {
+                    if (grunt.file.exists(file.dest + '/' + new_fname))
+                    {
+                        file_cnt_rewritten++;
+                        file_cnt_created--;
                         status_string = 'rewritten';
                     }
 
                     // create file
                     grunt.file.copy(f, file.dest + '/' + new_fname);
-                    grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
+                    grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok(); 
 
                     // json output
                     file_output['files'][output_ext][name + '.' + ext] = new_fname;
@@ -103,7 +107,7 @@ module.exports = function(grunt) {
         });
 
         // cnt files.
-        grunt.log.ok(file_cnt + ' files versioned.');
+        grunt.log.ok(chalk.green(file_cnt_created) + ' files created' + (file_cnt_rewritten > 0 ? ', '+ chalk.green(file_cnt_rewritten) + ' rewritten.' : '.' ));
 
         // Save JSON output file.
         if (options.config_output) {
