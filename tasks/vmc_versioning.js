@@ -96,7 +96,7 @@ module.exports = function(grunt) {
 
                     // create file
                     grunt.file.copy(f, file.dest + '/' + new_fname);
-                    grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok(); 
+                    grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
 
                     // json output
                     file_output['files'][output_ext][name + '.' + ext] = new_fname;
