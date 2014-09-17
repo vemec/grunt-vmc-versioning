@@ -14,7 +14,7 @@ var chalk  = require('chalk');
 
 module.exports = function(grunt) {
 
-    grunt.registerMultiTask('vmc_versioning', 'Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it', function() {
+    grunt.registerMultiTask('vmc_versioning', 'Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it. Versioning static assets with Grunt.', function() {
 
         // Default options
         var options = this.options({
