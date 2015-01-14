@@ -35,6 +35,15 @@ module.exports = function(grunt) {
 
         grunt.log.writeln('Versioning files, run with --verbose for more details.');
 
+        // check old config file an get content
+        var old_config_file = false;
+        if (options.config_output)
+        {
+            if (grunt.file.exists(options.config_dir + '/' + options.config_file)) {
+                old_config_file = grunt.file.readJSON(options.config_dir + '/' + options.config_file);
+            }
+        }
+
         // Files...
         this.files.forEach( function (file) {
             if (!file.src.length) {
@@ -43,7 +52,7 @@ module.exports = function(grunt) {
 
             file.src.forEach( function (f) {
                 if (grunt.file.isDir(f)) {
-                  return;
+                    return;
                 }
 
                 // Generate hash based on file.
@@ -61,11 +70,11 @@ module.exports = function(grunt) {
                 var new_fname = name + '.' + (options.prefix ? options.prefix + '.'  : '') + hash + '.' + ext;
 
                 var output_ext;
-                if (ext == 'jpg' || ext == 'jpeg' || ext == 'gif' || ext == 'png' || ext == 'svg') {
+                if (ext === 'jpg' || ext === 'jpeg' || ext === 'gif' || ext === 'png' || ext === 'svg') {
                     output_ext = 'img'; }
                 else {
                     output_ext = ext;
-                };
+                }
 
                 // Fill output data
                 file_output['files'] = file_output['files'] || {};
@@ -79,7 +88,7 @@ module.exports = function(grunt) {
                         duplicate_found = true;
                         grunt.verbose.writeln(chalk.blue('The file content of ' + filename + ' generate the same hash ' + hash + ', avoiding rewrite.'));
                     }
-                })
+                });
 
                 if (!duplicate_found)
                 {

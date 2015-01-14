@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         config_file: 'version_test_config.json',
         config_dir: 'tmp',
         hash_length: 8,
-        algorithm: 'md5',
+        algorithm: 'md5', // - other options sha1/sha256/sha512
         prefix: 'VMC'
       },
       dest: {
@@ -66,6 +66,8 @@ module.exports = function(grunt) {
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
   grunt.registerTask('test', ['clean', 'vmc_versioning']);
+
+  grunt.registerTask('ver', ['vmc_versioning']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);
