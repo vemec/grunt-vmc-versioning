@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.1.7 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
+# grunt-vmc-versioning v0.1.8 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it. Versioning static assets with Grunt.
 
