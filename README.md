@@ -137,7 +137,8 @@ grunt.initConfig({
 ```
 
 ## Release History
-- 2014-08-10 0.1.6 Fixed some jshint errors.
+- 2015-01-16 0.1.7 Add new option to delete files in dest
+- 2015-01-14 0.1.6 Fixed some jshint errors.
 - 2014-08-10 0.1.5 Change the JSON output file.
 - 2014-08-07 0.1.4 Enhancements.
 - 2014-08-06 0.1.3 Enhancements and fixes.
