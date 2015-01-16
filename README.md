@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.1.6 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
+# grunt-vmc-versioning v0.1.7 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it. Versioning static assets with Grunt.
 
@@ -86,6 +86,12 @@ Type: `String`
 Default value: `'utf8'`
 
 Encoding type
+
+#### options.delete_original
+Type: `Boolean`
+Default value: `false`
+
+Delete original file in dest
 
 
 ### JSON output file example (Optional)

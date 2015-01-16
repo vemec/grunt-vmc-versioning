@@ -25,7 +25,8 @@ module.exports = function(grunt) {
             hash_length: 6,                         // Default 6
             algorithm: 'md5',                       // Default md5 - other options sha1/sha256/sha512
             encoding: 'utf8',                       // Default utf8
-            prefix: ''                              // Default empty
+            prefix: '',                             // Default empty
+            delete_original: false                  // Default false
         });
 
         // init output data
@@ -94,18 +95,32 @@ module.exports = function(grunt) {
                 {
                     file_cnt_created++;
                     // Found file
-                    grunt.log.writeln('File ' + chalk.cyan(f) + ' found.');
+                    grunt.verbose.writeln('File ' + chalk.cyan(f) + ' found.');
                     var status_string = 'created';
                     if (grunt.file.exists(file.dest + '/' + new_fname))
                     {
                         file_cnt_rewritten++;
                         file_cnt_created--;
-                        status_string = 'rewritten';
+                        status_string = 'skipped';
                     }
 
                     // create file
                     grunt.file.copy(f, file.dest + '/' + new_fname);
-                    grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
+                    if (status_string === 'skipped' ) {
+                        grunt.verbose.writeln('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ');
+                    }
+                    else {
+                        grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
+                    }
+
+                    // delete original files
+                    if (options.delete_original)
+                    {
+                        var file_to_delete = file.dest + '/' + name + '.' + ext;
+                        if (grunt.file.exists(file_to_delete)) {
+                            grunt.file.delete(file_to_delete, { force: true });
+                        }
+                    }
 
                     // json output
                     file_output['files'][output_ext][name + '.' + ext] = new_fname;
@@ -116,11 +131,14 @@ module.exports = function(grunt) {
         });
 
         // cnt files.
-        grunt.log.ok(chalk.green(file_cnt_created) + ' files versioned' + (file_cnt_rewritten > 0 ? ', '+ chalk.green(file_cnt_rewritten) + ' rewritten.' : '.' ));
+        grunt.log.ok(chalk.green(file_cnt_created) + ' files versioned' + (file_cnt_rewritten > 0 ? ', '+ chalk.green(file_cnt_rewritten) + ' skipped.' : '.' ));
 
         // Save JSON output file.
-        if (options.config_output) {
-            outputJSONFile(file_output, options.config_dir, options.config_wrap_name, options.config_file);
+        if (file_cnt_created > 0)
+        {
+            if (options.config_output) {
+                outputJSONFile(file_output, options.config_dir, options.config_wrap_name, options.config_file);
+            }
         }
 
     });
