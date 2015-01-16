@@ -33,10 +33,10 @@ module.exports = function(grunt) {
     // Configuration to be run (and then tested).
     vmc_versioning: {
       options: {
-        config_wrap_name: 'versioned_test_files',
-        config_file: 'version_test_config.json',
-        config_dir: 'tmp',
-        hash_length: 8,
+        configWrapName: 'versioned_test_files',
+        configFile: 'version_test_config.json',
+        configDir: 'tmp',
+        hashLength: 8,
         algorithm: 'md5', // - other options sha1/sha256/sha512
         prefix: 'VMC'
       },

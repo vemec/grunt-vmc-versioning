@@ -18,15 +18,14 @@ module.exports = function(grunt) {
 
         // Default options
         var options = this.options({
-            config_output: true,                    // Default true
-            config_wrap_name: 'versioned_files',    // Default versioned_files
-            config_file: 'versioning_config.json',  // Default versioning_config.json
-            config_dir: 'tmp',                      // Default tmp
-            hash_length: 6,                         // Default 6
-            algorithm: 'md5',                       // Default md5 - other options sha1/sha256/sha512
-            encoding: 'utf8',                       // Default utf8
-            prefix: '',                             // Default empty
-            delete_original: false                  // Default false
+            configOutput: true,                   // Default true
+            configWrapName: 'versioned_files',    // Default versioned_files
+            configFile: 'versioning_config.json', // Default versioning_config.json
+            configDir: 'tmp',                     // Default tmp
+            hashLength: 6,                        // Default 6
+            algorithm: 'md5',                     // Default md5 - other options sha1/sha256/sha512
+            encoding: 'utf8',                     // Default utf8
+            prefix: ''                            // Default empty
         });
 
         // init output data
@@ -37,11 +36,11 @@ module.exports = function(grunt) {
         grunt.log.writeln('Versioning files, run with --verbose for more details.');
 
         // check old config file an get content
-        var old_config_file = false;
-        if (options.config_output)
+        var old_configFile = false;
+        if (options.configOutput)
         {
-            if (grunt.file.exists(options.config_dir + '/' + options.config_file)) {
-                old_config_file = grunt.file.readJSON(options.config_dir + '/' + options.config_file);
+            if (grunt.file.exists(options.configDir + '/' + options.configFile)) {
+                old_configFile = grunt.file.readJSON(options.configDir + '/' + options.configFile);
             }
         }
 
@@ -62,7 +61,7 @@ module.exports = function(grunt) {
                     grunt.log.warn('File ' + chalk.cyan(f) + ' is empty.');
                     return;
                 }
-                var hash = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hash_length);
+                var hash = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hashLength);
 
                 // Get filename and extension
                 var filename  = f.replace(/(.*)\//gi, '');
@@ -113,14 +112,14 @@ module.exports = function(grunt) {
                         grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
                     }
 
-                    // delete original files
-                    if (options.delete_original)
-                    {
-                        var file_to_delete = file.dest + '/' + name + '.' + ext;
-                        if (grunt.file.exists(file_to_delete)) {
-                            grunt.file.delete(file_to_delete, { force: true });
-                        }
-                    }
+                    // // delete original files
+                    // if (options.delete_original)
+                    // {
+                    //     var file_to_delete = file.dest + '/' + name + '.' + ext;
+                    //     if (grunt.file.exists(file_to_delete)) {
+                    //         grunt.file.delete(file_to_delete, { force: true });
+                    //     }
+                    // }
 
                     // json output
                     file_output['files'][output_ext][name + '.' + ext] = new_fname;
@@ -136,8 +135,8 @@ module.exports = function(grunt) {
         // Save JSON output file.
         if (file_cnt_created > 0)
         {
-            if (options.config_output) {
-                outputJSONFile(file_output, options.config_dir, options.config_wrap_name, options.config_file);
+            if (options.configOutput) {
+                outputJSONFile(file_output, options.configDir, options.configWrapName, options.configFile);
             }
         }
 
@@ -177,18 +176,18 @@ module.exports = function(grunt) {
      * @param  {object} output      Files versions.
      * @param  {string} dest        Dest to save config file.
      * @param  {string} name_space  Name to wrap config content.
-     * @param  {string} config_file Config file name.
+     * @param  {string} configFile  Config file name.
      * @return {undefined}
      */
-    function outputJSONFile(output, dest, name_space, config_file)
+    function outputJSONFile(output, dest, name_space, configFile)
     {
         var obj = {};
         obj[name_space] = output;
         var json = JSON.stringify(obj, null, '\t');
         grunt.log.writeln();
         grunt.log.writeln('Saving JSON config file...');
-        grunt.file.write(dest + '/' + config_file, json);
-        grunt.log.ok('File ' + chalk.cyan(dest +'/'+ config_file) + ' created.');
+        grunt.file.write(dest + '/' + configFile, json);
+        grunt.log.ok('File ' + chalk.cyan(dest +'/'+ configFile) + ' created.');
     }
 
 };

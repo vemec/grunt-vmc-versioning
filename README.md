@@ -37,31 +37,31 @@ grunt.initConfig({
 
 ### Options
 
-#### options.config_output
+#### options.configOutput
 Type: `Boolean`
 Default value: `'true'`
 
 Output JSON file.
 
-#### options.config_wrap_name
+#### options.configWrapName
 Type: `String`
 Default value: `'versioned_files'`
 
 A string value that is used to set a wrapper name to the JSON output file.
 
-#### options.config_file
+#### options.configFile
 Type: `String`
 Default value: `'versioning_config.json'`
 
 JSON output file name.
 
-#### options.config_dir
+#### options.configDir
 Type: `String`
 Default value: `'tmp'`
 
 A dir to save the JSON config file.
 
-#### options.hash_length
+#### options.hashLength
 Type: `String`
 Default value: `'tmp'`
 
@@ -86,12 +86,6 @@ Type: `String`
 Default value: `'utf8'`
 
 Encoding type
-
-#### options.delete_original
-Type: `Boolean`
-Default value: `false`
-
-Delete original file in dest
 
 
 ### JSON output file example (Optional)
@@ -137,6 +131,7 @@ grunt.initConfig({
 ```
 
 ## Release History
+- 2015-01-16 0.1.8 Removed delete option, not a good idea, options changed to camelCase
 - 2015-01-16 0.1.7 Add new option to delete files in dest
 - 2015-01-14 0.1.6 Fixed some jshint errors.
 - 2014-08-10 0.1.5 Change the JSON output file.
