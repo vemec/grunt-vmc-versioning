@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.1.8 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
+# grunt-vmc-versioning v0.1.9 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it. Versioning static assets with Grunt.
 
@@ -131,8 +131,9 @@ grunt.initConfig({
 ```
 
 ## Release History
-- 2015-01-16 0.1.8 Removed delete option, not a good idea, options changed to camelCase
-- 2015-01-16 0.1.7 Add new option to delete files in dest
+- 2015-02-27 0.1.9 Update dependencies.
+- 2015-01-16 0.1.8 Removed delete option, not a good idea, options changed to camelCase.
+- 2015-01-16 0.1.7 Add new option to delete files in dest.
 - 2015-01-14 0.1.6 Fixed some jshint errors.
 - 2014-08-10 0.1.5 Change the JSON output file.
 - 2014-08-07 0.1.4 Enhancements.
