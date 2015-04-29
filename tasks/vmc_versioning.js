@@ -2,7 +2,7 @@
  * grunt-vmc-versioning
  * https://github.com/vemec/grunt-vmc-versioning
  *
- * Copyright (c) 2014 Diego Ghersi
+ * Copyright (c) 2015 Diego Ghersi
  * Licensed under the MIT license.
  */
 
@@ -141,27 +141,27 @@ module.exports = function(grunt) {
                     var json_content = grunt.file.readJSON(options.configDir + '/' + options.configFile);
 
                     // read every css file
-                    for(var css_file in json_content.versioned_test_files['files']['css'])
+                    for(var css_file in json_content[options.configWrapName]['files']['css'])
                     {
                         // get css content
-                        var css_content = grunt.file.read(options.cssDir + '/' + json_content.versioned_test_files['files']['css'][css_file], options.encoding);
-                        grunt.log.ok('Replacing imgs on CSS file: ' + chalk.cyan(json_content.versioned_test_files['files']['css'][css_file]));
+                        var css_content = grunt.file.read(options.cssDir + '/' + json_content[options.configWrapName]['files']['css'][css_file], options.encoding);
+                        grunt.log.ok('Replacing imgs on CSS file: ' + chalk.cyan(json_content[options.configWrapName]['files']['css'][css_file]));
                         grunt.verbose.writeln();
 
                         // search and replace images in the CSS
-                        for(var img in json_content.versioned_test_files['files']['img']) {
-                            css_content = css_content.replace(new RegExp(img, 'gi'), json_content.versioned_test_files['files']['img'][img]);
+                        for(var img in json_content[options.configWrapName]['files']['img']) {
+                            css_content = css_content.replace(new RegExp(img, 'gi'), json_content[options.configWrapName]['files']['img'][img]);
                         }
 
                         // write file
-                        grunt.file.write(options.cssDir + '/' + json_content.versioned_test_files['files']['css'][css_file], css_content);
-                        grunt.log.ok('Replacing imgs for ' + chalk.cyan(json_content.versioned_test_files['files']['css'][css_file]) + ' complete.');
+                        grunt.file.write(options.cssDir + '/' + json_content[options.configWrapName]['files']['css'][css_file], css_content);
+                        grunt.log.ok('Replacing imgs for ' + chalk.cyan(json_content[options.configWrapName]['files']['css'][css_file]) + ' complete.');
                     }
                 }
                 else
                 {
                     // warning
-                    grunt.log.warn('Replace CSS image is set but not cssDir is giben.');
+                    grunt.log.warn('replaceCssImgs is set to be true, but cssDir is empty.');
                     return;
                 }
             }

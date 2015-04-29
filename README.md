@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.2.0 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
+# grunt-vmc-versioning v0.2.1 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it. Versioning static assets with Grunt.
 
@@ -145,6 +145,7 @@ grunt.initConfig({
 ```
 
 ## Release History
+- 2015-04-29 0.2.1 Small fix in hardcoded property.
 - 2015-04-29 0.2.0 Find and replace the name of the versioned images in the CSS.
 - 2015-02-27 0.1.9 Update dependencies.
 - 2015-01-16 0.1.8 Removed delete option, not a good idea, options changed to camelCase.
