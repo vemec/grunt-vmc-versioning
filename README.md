@@ -145,7 +145,7 @@ grunt.initConfig({
 ```
 
 ## Release History
-- 2015-02-29 0.2.0 Find and replace the name of the versioned images in the CSS.
+- 2015-04-29 0.2.0 Find and replace the name of the versioned images in the CSS.
 - 2015-02-27 0.1.9 Update dependencies.
 - 2015-01-16 0.1.8 Removed delete option, not a good idea, options changed to camelCase.
 - 2015-01-16 0.1.7 Add new option to delete files in dest.
