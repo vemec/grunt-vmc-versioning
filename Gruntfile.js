@@ -2,7 +2,7 @@
  * grunt-vmc-versioning
  * https://github.com/vemec/grunt-vmc-versioning
  *
- * Copyright (c) 2014 Diego Ghersi
+ * Copyright (c) 2015 Diego Ghersi
  * Licensed under the MIT license.
  */
 
@@ -38,7 +38,9 @@ module.exports = function(grunt) {
         configDir: 'tmp',
         hashLength: 8,
         algorithm: 'md5', // - other options sha1/sha256/sha512
-        prefix: 'VMC'
+        prefix: 'VMC',
+        replaceCssImgs: true,
+        cssDir: 'tmp/css'
       },
       dest: {
         files: {

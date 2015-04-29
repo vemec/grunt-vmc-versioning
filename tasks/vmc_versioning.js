@@ -22,6 +22,8 @@ module.exports = function(grunt) {
             configWrapName: 'versioned_files',    // Default versioned_files
             configFile: 'versioning_config.json', // Default versioning_config.json
             configDir: 'tmp',                     // Default tmp
+            replaceCssImgs: false,                // Default false
+            cssDir: '',                           // Default empty
             hashLength: 6,                        // Default 6
             algorithm: 'md5',                     // Default md5 - other options sha1/sha256/sha512
             encoding: 'utf8',                     // Default utf8
@@ -112,15 +114,6 @@ module.exports = function(grunt) {
                         grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
                     }
 
-                    // // delete original files
-                    // if (options.delete_original)
-                    // {
-                    //     var file_to_delete = file.dest + '/' + name + '.' + ext;
-                    //     if (grunt.file.exists(file_to_delete)) {
-                    //         grunt.file.delete(file_to_delete, { force: true });
-                    //     }
-                    // }
-
                     // json output
                     file_output['files'][output_ext][name + '.' + ext] = new_fname;
                 }
@@ -137,6 +130,40 @@ module.exports = function(grunt) {
         {
             if (options.configOutput) {
                 outputJSONFile(file_output, options.configDir, options.configWrapName, options.configFile);
+            }
+
+            // replace versioning images on CSS file.
+            if (options.replaceCssImgs && options.configOutput)
+            {
+                if (options.cssDir)
+                {
+                    // read and get json file
+                    var json_content = grunt.file.readJSON(options.configDir + '/' + options.configFile);
+
+                    // read every css file
+                    for(var css_file in json_content.versioned_test_files['files']['css'])
+                    {
+                        // get css content
+                        var css_content = grunt.file.read(options.cssDir + '/' + json_content.versioned_test_files['files']['css'][css_file], options.encoding);
+                        grunt.log.ok('Replacing imgs on CSS file: ' + chalk.cyan(json_content.versioned_test_files['files']['css'][css_file]));
+                        grunt.verbose.writeln();
+
+                        // search and replace images in the CSS
+                        for(var img in json_content.versioned_test_files['files']['img']) {
+                            css_content = css_content.replace(new RegExp(img, 'gi'), json_content.versioned_test_files['files']['img'][img]);
+                        }
+
+                        // write file
+                        grunt.file.write(options.cssDir + '/' + json_content.versioned_test_files['files']['css'][css_file], css_content);
+                        grunt.log.ok('Replacing imgs for ' + chalk.cyan(json_content.versioned_test_files['files']['css'][css_file]) + ' complete.');
+                    }
+                }
+                else
+                {
+                    // warning
+                    grunt.log.warn('Replace CSS image is set but not cssDir is giben.');
+                    return;
+                }
             }
         }
 

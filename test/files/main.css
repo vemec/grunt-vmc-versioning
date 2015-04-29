@@ -3,3 +3,32 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
+
+html {
+    background: #ddd url(npm-logo.png);
+}
+
+body {
+    background: #000 url(npm-logo.png);
+}
+
+p {
+    background: #fff url(grunt-logo.png);
+}
+
+small {
+    background: #ccc url('grunt-logo.png');
+}
+
+strong {
+    background: #ddd url("npm-logo.png");
+}
+
+i {
+    background: #ddd url(/images/npm-logo.png);
+}
+
+b {
+    background: #ddd url('images/npm-logo.png');
+}
+
