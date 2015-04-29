@@ -92,7 +92,7 @@ Encoding type
 Type: `Boolean`
 Default value: `'false'`
 
-Find and replace the name of the versioned images using the JSON output file in all the CSS files find in the directory with the option: options.cssDir.
+Find and replace the name of the versioned images using the JSON output file in all the CSS files find in the directory with the option: `'options.cssDir'`.
 
 
 #### options.cssDir
