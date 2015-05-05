@@ -140,12 +140,17 @@ module.exports = function(grunt) {
                     // read and get json file
                     var json_content = grunt.file.readJSON(options.configDir + '/' + options.configFile);
 
+                    // src config
+                    var src = [
+                       options.cssDir + '/**/*.css'
+                    ];
+
                     // read every css file
-                    for(var css_file in json_content[options.configWrapName]['files']['css'])
-                    {
+                    grunt.file.expand({ filter: 'isFile'}, src).forEach( function(css_file) {
+
                         // get css content
-                        var css_content = grunt.file.read(options.cssDir + '/' + json_content[options.configWrapName]['files']['css'][css_file], options.encoding);
-                        grunt.log.ok('Replacing imgs on CSS file: ' + chalk.cyan(json_content[options.configWrapName]['files']['css'][css_file]));
+                        var css_content = grunt.file.read(css_file, options.encoding);
+                        grunt.log.ok('Replacing imgs on CSS file: ' + chalk.cyan(css_file));
                         grunt.verbose.writeln();
 
                         // search and replace images in the CSS
@@ -154,9 +159,10 @@ module.exports = function(grunt) {
                         }
 
                         // write file
-                        grunt.file.write(options.cssDir + '/' + json_content[options.configWrapName]['files']['css'][css_file], css_content);
-                        grunt.log.ok('Replacing imgs for ' + chalk.cyan(json_content[options.configWrapName]['files']['css'][css_file]) + ' complete.');
-                    }
+                        grunt.file.write(css_file, css_content);
+                        grunt.log.ok('Replacing imgs for ' + chalk.cyan(css_file) + ' complete.');
+
+                    });
                 }
                 else
                 {
