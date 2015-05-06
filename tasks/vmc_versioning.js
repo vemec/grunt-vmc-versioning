@@ -11,6 +11,7 @@
 // Libs
 var crypto = require('crypto');
 var chalk  = require('chalk');
+var path = require('path');
 
 module.exports = function(grunt) {
 
@@ -95,10 +96,14 @@ module.exports = function(grunt) {
                 if (!duplicate_found)
                 {
                     file_cnt_created++;
+
+                    // Build new path dest
+                    var new_path = path.dirname(file.dest) + '/' + new_fname;
+
                     // Found file
                     grunt.verbose.writeln('File ' + chalk.cyan(f) + ' found.');
                     var status_string = 'created';
-                    if (grunt.file.exists(file.dest + '/' + new_fname))
+                    if (grunt.file.exists(new_path))
                     {
                         file_cnt_rewritten++;
                         file_cnt_created--;
@@ -106,12 +111,12 @@ module.exports = function(grunt) {
                     }
 
                     // create file
-                    grunt.file.copy(f, file.dest + '/' + new_fname);
+                    grunt.file.copy(f, new_path);
                     if (status_string === 'skipped' ) {
-                        grunt.verbose.writeln('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ');
+                        grunt.verbose.writeln('File ' + chalk.cyan(new_path) + ' ' + status_string + ' ');
                     }
                     else {
-                        grunt.log.write('File ' + chalk.cyan(file.dest + '/' + new_fname) + ' ' + status_string + ' ').ok();
+                        grunt.log.write('File ' + chalk.cyan(new_path) + ' ' + status_string + ' ').ok();
                     }
 
                     // json output

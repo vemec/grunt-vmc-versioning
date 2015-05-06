@@ -1,4 +1,4 @@
-# grunt-vmc-versioning v0.2.2
+# grunt-vmc-versioning v0.2.3
 [![Build Status](https://travis-ci.org/vemec/grunt-vmc-versioning.svg?branch=master)](https://travis-ci.org/vemec/grunt-vmc-versioning) [![Dependency Status](https://david-dm.org/vemec/grunt-vmc-versioning.svg)](https://david-dm.org/vemec/grunt-vmc-versioning)
 
 > Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it. Versioning static assets with Grunt.
@@ -136,16 +136,19 @@ grunt.initConfig({
       prefix: '<%= pkg.version %>'
     },
     dest: {
-      files: {
-        'tmp/css': ['test/files/*.css'],
-        'tmp/js': ['test/files/*.js']
-      }
+      files: [{
+          cwd: 'test/files/',
+          src: '**/*.{png,jpg,gif,css,js}',
+          dest: 'tmp',
+          expand: true
+      }],
     }
   }
 });
 ```
 
 ## Release History
+- 2015-05-06 0.2.3 Use dynamic mappings for files.
 - 2015-05-05 0.2.2 Now use `'grunt.file.expand'` to find all CSS files.
 - 2015-04-29 0.2.1 Small fix in hardcoded property.
 - 2015-04-29 0.2.0 Find and replace the name of the versioned images in the CSS.
