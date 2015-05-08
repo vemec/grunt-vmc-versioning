@@ -35,6 +35,8 @@ module.exports = function(grunt) {
         var file_output = {};
         var file_cnt_created = 0;
         var file_cnt_rewritten = 0;
+        var file_cnt_css_replaced = 0;
+        var file_cnt_css_replaced_img = 0;
 
         grunt.log.writeln('Versioning files, run with --verbose for more details.');
 
@@ -101,7 +103,7 @@ module.exports = function(grunt) {
                     var new_path = path.dirname(file.dest) + '/' + new_fname;
 
                     // Found file
-                    grunt.verbose.writeln('File ' + chalk.cyan(f) + ' found.');
+                    grunt.verbose.write('File ' + chalk.cyan(f) + ' found.');
                     var status_string = 'created';
                     if (grunt.file.exists(new_path))
                     {
@@ -113,10 +115,10 @@ module.exports = function(grunt) {
                     // create file
                     grunt.file.copy(f, new_path);
                     if (status_string === 'skipped' ) {
-                        grunt.verbose.writeln('File ' + chalk.cyan(new_path) + ' ' + status_string + ' ');
+                        grunt.verbose.write('File ' + chalk.cyan(new_path) + ' ' + status_string + ' ');
                     }
                     else {
-                        grunt.log.write('File ' + chalk.cyan(new_path) + ' ' + status_string + ' ').ok();
+                        grunt.verbose.write('File ' + chalk.cyan(new_path) + ' ' + status_string + ' ').ok();
                     }
 
                     // json output
@@ -136,7 +138,12 @@ module.exports = function(grunt) {
             if (options.configOutput) {
                 outputJSONFile(file_output, options.configDir, options.configWrapName, options.configFile);
             }
+        }
 
+        // If I find an old config file or I versioned new file,
+        // parce al CSS to change images
+        if (old_configFile || file_cnt_created)
+        {
             // replace versioning images on CSS file.
             if (options.replaceCssImgs && options.configOutput)
             {
@@ -150,13 +157,17 @@ module.exports = function(grunt) {
                        options.cssDir + '/**/*.css'
                     ];
 
+                    // get images cnt
+                    for(var img in json_content[options.configWrapName]['files']['img']) {
+                        file_cnt_css_replaced_img++;
+                    }
+
                     // read every css file
                     grunt.file.expand({ filter: 'isFile'}, src).forEach( function(css_file) {
 
                         // get css content
                         var css_content = grunt.file.read(css_file, options.encoding);
-                        grunt.log.ok('Replacing imgs on CSS file: ' + chalk.cyan(css_file));
-                        grunt.verbose.writeln();
+                        grunt.verbose.write('Replacing imgs on CSS file: ' + chalk.cyan(css_file) + ' ').ok();
 
                         // search and replace images in the CSS
                         for(var img in json_content[options.configWrapName]['files']['img']) {
@@ -165,9 +176,15 @@ module.exports = function(grunt) {
 
                         // write file
                         grunt.file.write(css_file, css_content);
-                        grunt.log.ok('Replacing imgs for ' + chalk.cyan(css_file) + ' complete.');
+                        grunt.verbose.write('Replacing imgs for ' + chalk.cyan(css_file) + ' complete. ').ok();
+
+                        // cnt ++
+                        file_cnt_css_replaced++;
 
                     });
+
+                    // log ok
+                    grunt.log.ok('Searched and replaced ' + chalk.green(file_cnt_css_replaced_img) + ' images in a total of ' + chalk.green(file_cnt_css_replaced) + ' CSS files.');
                 }
                 else
                 {
@@ -222,8 +239,7 @@ module.exports = function(grunt) {
         var obj = {};
         obj[name_space] = output;
         var json = JSON.stringify(obj, null, '\t');
-        grunt.log.writeln();
-        grunt.log.writeln('Saving JSON config file...');
+        grunt.verbose.write('Saving JSON config file...');
         grunt.file.write(dest + '/' + configFile, json);
         grunt.log.ok('File ' + chalk.cyan(dest +'/'+ configFile) + ' created.');
     }
