@@ -1,7 +1,7 @@
 {
   "name": "grunt-vmc-versioning",
   "description": "Generate md5/sha1/sha256/sha512 hash based on the content of a file and append to it. Versioning static assets with Grunt.",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "homepage": "https://github.com/vemec/grunt-vmc-versioning",
   "author": {
     "name": "Diego Ghersi",

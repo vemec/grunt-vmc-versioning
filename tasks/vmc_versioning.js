@@ -9,6 +9,7 @@
 'use strict';
 
 // Libs
+var fs = require("fs");
 var crypto = require('crypto');
 var chalk  = require('chalk');
 var path = require('path');
@@ -61,11 +62,7 @@ module.exports = function(grunt) {
                 }
 
                 // Generate hash based on file.
-                var file_content = grunt.file.read(f, options.encoding);
-                if (file_content.length === 0) {
-                    grunt.log.warn('File ' + chalk.cyan(f) + ' is empty.');
-                    return;
-                }
+                var file_content = fs.readFileSync(f);
                 var hash = crypto.createHash(options.algorithm).update(file_content).digest('hex').substring(0, options.hashLength);
 
                 // Get filename and extension
